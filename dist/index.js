@@ -31,6 +31,9 @@ var Promise = /** @class */ (function () {
     };
     Promise.prototype["catch"] = function (reject) {
         this.rejects.push(reject);
+        if (this.status === 'rejected') {
+            this.callback(this.rejects);
+        }
     };
     Promise.prototype.fulfilled = function (result) {
         this.status = 'fulfilled';

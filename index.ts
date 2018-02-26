@@ -34,6 +34,10 @@ export default class Promise {
 
   catch(reject: Function) {
     this.rejects.push(reject)
+
+    if (this.status === 'rejected') {
+      this.callback(this.rejects)
+    }
   }
 
   fulfilled(result) {
