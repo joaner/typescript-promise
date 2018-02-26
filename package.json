@@ -2,7 +2,7 @@
   "name": "typescript-promise",
   "version": "0.1.0",
   "description": "Promise polyfill written by typescript",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
     "build": "tsc index.ts --outDir dist"
