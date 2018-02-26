@@ -52,7 +52,27 @@ var Promise = /** @class */ (function () {
         }
     };
     Promise.all = function (promises) {
-        console.log(promises);
+        var results = [];
+        var leftCount = promises.length;
+        return new Promise(function (resolve, reject) {
+            var setResult = function (key, result) {
+                results[key] = result;
+                leftCount--;
+                if (leftCount === 0) {
+                    resolve(results);
+                }
+            };
+            promises.forEach(function (promise, key) {
+                if (promise instanceof Promise) {
+                    promise.then(function (result) {
+                        setResult(key, result);
+                    }, reject);
+                }
+                else {
+                    setResult(key, promise);
+                }
+            });
+        });
     };
     return Promise;
 }());

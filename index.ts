@@ -62,6 +62,28 @@ export default class Promise {
   }
 
   static all(promises: Array<Promise>) {
-    console.log(promises)
+    const results = []
+    let leftCount = promises.length
+
+    return new Promise(function(resolve, reject) {
+      const setResult = function(key, result) {
+        results[key] = result
+
+        leftCount--
+        if (leftCount === 0) {
+          resolve(results)
+        }
+      }
+
+      promises.forEach(function(promise, key) {
+        if (promise instanceof Promise) {
+          promise.then(function(result){
+            setResult(key, result)
+          }, reject)
+        } else {
+          setResult(key, promise)
+        }
+      })
+    })
   }
 }
