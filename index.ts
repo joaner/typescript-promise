@@ -1,7 +1,21 @@
+/**
+ * Promise class
+ * @class
+ */
 export default class Promise {
+  /**
+   * promise process status
+   */
   public status: String = 'pending'
-  private result: any
 
+  /**
+   * promise process result
+   */
+  protected result: any
+
+  /**
+   * promise executed callback
+   */
   protected resolves: Array<Function> = []
   protected rejects: Array<Function> = []
 
@@ -19,12 +33,18 @@ export default class Promise {
     }
   }
 
+  /**
+   * add callback
+   * @param {Function} resolve - on resolved callback
+   * @param {Function} reject - on rejected callback
+   */
   then(resolve: Function, reject?: Function) {
     this.resolves.push(resolve)
     if (reject) {
       this.rejects.push(reject)
     }
 
+    // if already done, execute left callbacks
     if (this.status === 'rejected') {
       this.callback(this.rejects)
     } else if (this.status === 'fulfilled') {
@@ -32,6 +52,10 @@ export default class Promise {
     }
   }
 
+  /**
+   * add rejected callback
+   * @param {Function} reject - on rejected callback
+   */
   catch(reject: Function) {
     this.rejects.push(reject)
 
@@ -40,13 +64,21 @@ export default class Promise {
     }
   }
 
-  fulfilled(result) {
+  /**
+   * on promise resolved callback
+   * @param {any} result - promise result
+   */
+  fulfilled(result: any) {
     this.status = 'fulfilled'
     this.result = result
 
     this.callback(this.resolves)
   }
 
+  /**
+   * on promise rejected callback
+   * @param {any} reason - promise rejected reason or Error
+   */
   rejected(reason) {
     this.status = 'rejected'
     this.result = reason
@@ -54,13 +86,21 @@ export default class Promise {
     this.callback(this.rejects)
   }
 
-  callback(callbacks) {
+  /**
+   * execute callbacks
+   * @param {Array<Function>} callbacks
+   */
+  callback(callbacks: Array<Function>) {
     let callback
     while (callback = callbacks.shift()) {
       callback(this.result)
     }
   }
 
+  /**
+   * execute multi promises
+   * @param {Array<Promise>} promises - promise or result list
+   */
   static all(promises: Array<Promise>) {
     const results = []
     let leftCount = promises.length
