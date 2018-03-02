@@ -6,7 +6,7 @@ Promise polyfill written by typescript
 
 ## Usage
 
-The APIs and Mozilla's [Promise documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) describe the same.
+The APIs same with Mozilla's [Promise documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
 ```javascript
 const Promise = require('../dist/index.js').default
@@ -16,7 +16,7 @@ new Promise(function(resolve, reject) {
     resolve(response)
   })
 }).then(function(response) {
-  consoel.log('the response is ', response)
+  console.log('the response is ', response)
 }, function(reason) {
   console.log('error', reason)
 })
@@ -29,8 +29,8 @@ new Promise(function(resolve, reject) {
 ```bash
 npm install -g typescript
 
-# npm run build
 tsc index.ts --outDir dist
+# or: npm run build
 ```
 
 ### Function Test
