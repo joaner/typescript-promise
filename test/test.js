@@ -104,6 +104,30 @@ describe('Promise', function() {
     })
   })
 
+  describe('#finally', function() {
+    it('resolved', function(done) {
+      const promise = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          reject('hello')
+        }, 20)
+      })
+
+      promise.finally(function(reason) {
+        done()
+      })
+    })
+
+    it('rejected', function(done) {
+      const promise = new Promise(function(resolve, reject) {
+        throw new Error('hello')
+      })
+
+      promise.finally(function() {
+        done()
+      })
+    })
+  })
+
   describe('#all', function() {
     it('resolve', function(done) {
       Promise.all([
@@ -114,7 +138,6 @@ describe('Promise', function() {
         }),
         'world',
       ]).then(function(results) {
-        console.log(results)
         if (results instanceof Array && results[0] === 'hello' && results[1] === 'world') {
           done()
         } else {

@@ -18,6 +18,7 @@ export default class Promise {
    */
   protected resolves: Array<Function> = []
   protected rejects: Array<Function> = []
+  protected finallys: Array<Function> = []
 
   /**
    * create a Promise execute
@@ -65,6 +66,18 @@ export default class Promise {
   }
 
   /**
+   * add finally callback
+   * @param {Function} finally - rejected or resolved callback
+   */
+  finally(callback: Function) {
+    this.finallys.push(callback)
+
+    if (this.status !== 'pending') {
+      this.callback(this.finallys)
+    }
+  }
+
+  /**
    * on promise resolved callback
    * @param {any} result - promise result
    */
@@ -73,6 +86,7 @@ export default class Promise {
     this.result = result
 
     this.callback(this.resolves)
+    this.callback(this.finallys)
   }
 
   /**
@@ -84,6 +98,7 @@ export default class Promise {
     this.result = reason
 
     this.callback(this.rejects)
+    this.callback(this.finallys)
   }
 
   /**

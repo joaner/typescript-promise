@@ -18,6 +18,7 @@ var Promise = /** @class */ (function () {
          */
         this.resolves = [];
         this.rejects = [];
+        this.finallys = [];
         var onFulfilled = this.fulfilled.bind(this);
         var onRejected = this.rejected.bind(this);
         try {
@@ -56,6 +57,16 @@ var Promise = /** @class */ (function () {
         }
     };
     /**
+     * add finally callback
+     * @param {Function} finally - rejected or resolved callback
+     */
+    Promise.prototype["finally"] = function (callback) {
+        this.finallys.push(callback);
+        if (this.status !== 'pending') {
+            this.callback(this.finallys);
+        }
+    };
+    /**
      * on promise resolved callback
      * @param {any} result - promise result
      */
@@ -63,6 +74,7 @@ var Promise = /** @class */ (function () {
         this.status = 'fulfilled';
         this.result = result;
         this.callback(this.resolves);
+        this.callback(this.finallys);
     };
     /**
      * on promise rejected callback
@@ -72,6 +84,7 @@ var Promise = /** @class */ (function () {
         this.status = 'rejected';
         this.result = reason;
         this.callback(this.rejects);
+        this.callback(this.finallys);
     };
     /**
      * execute callbacks

@@ -15,10 +15,14 @@ new Promise(function(resolve, reject) {
   foo(function(response) {
     resolve(response)
   })
-}).then(function(response) {
-  console.log('the response is ', response)
+}).then(function(result) {
+  console.log(result)
 }, function(reason) {
-  console.log('error', reason)
+  console.error(reason)
+}).catch(function(reson) {
+  console.error(resaon)
+}).finally(function() {
+  console.info('done')
 })
 ```
 
