@@ -26,12 +26,31 @@ new Promise(function(resolve, reject) {
 })
 ```
 
+### Static Methods
+
 ```javascript
-Promise.resolve('hello').then(result => {
+// Promise.all
+Promise.all([
+  new Promise(),
+  'hello',
+  Promise.resolve('world'),
+])
+.then(results => {
+  console.log(result)
+})
+.catch(reason => {
+  console.error(reason)
+})
+
+// Promise.resolve
+Promise.resolve('hello')
+.then(result => {
   console.log(result)
 })
 
-Promise.reject('hello').then(reason => {
+// Promise.reject
+Promise.reject('hello')
+.catch(reason => {
   console.error(reason)
 })
 ```
