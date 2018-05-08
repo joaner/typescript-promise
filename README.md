@@ -26,6 +26,16 @@ new Promise(function(resolve, reject) {
 })
 ```
 
+```javascript
+Promise.resolve('hello').then(result => {
+  console.log(result)
+})
+
+Promise.reject('hello').then(reason => {
+  console.error(reason)
+})
+```
+
 ## Command
 
 ### Build to JavaScript

@@ -123,6 +123,24 @@ var Promise = /** @class */ (function () {
             });
         });
     };
+    /**
+     * create a resovled promise
+     * @param {any} result - resolved result
+     */
+    Promise.resolve = function (result) {
+        return new Promise(function (resolve) {
+            resolve(result);
+        });
+    };
+    /**
+     * create a rejected promise
+     * @param {any} reason - rejected result
+     */
+    Promise.reject = function (reason) {
+        return new Promise(function (resolve, reject) {
+            reject(reason);
+        });
+    };
     return Promise;
 }());
 exports["default"] = Promise;

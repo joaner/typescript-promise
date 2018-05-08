@@ -141,4 +141,24 @@ export default class Promise {
       })
     })
   }
+
+  /**
+   * create a resovled promise
+   * @param {any} result - resolved result
+   */
+  static resolve(result: any) {
+    return new Promise(function(resolve) {
+      resolve(result)
+    })
+  }
+
+  /**
+   * create a rejected promise
+   * @param {any} reason - rejected result
+   */
+  static reject(reason: any) {
+    return new Promise(function(resolve, reject) {
+      reject(reason)
+    })
+  }
 }

@@ -163,4 +163,26 @@ describe('Promise', function() {
       })
     })
   })
+
+  describe('#resolve/reject', function() {
+    it('resolve', function(done) {
+      Promise.resolve('hello').then(function(result) {
+        if (result === 'hello') {
+          done()
+        } else {
+          done('resolve result is wrong')
+        }
+      })
+    })
+
+    it('reject', function(done) {
+      Promise.reject('hello').catch(function(result) {
+        if (result === 'hello') {
+          done()
+        } else {
+          done('reject result is wrong')
+        }
+      })
+    })
+  })
 })
